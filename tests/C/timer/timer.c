@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdint.h>
 
 #define TIMER (*(uint64_t volatile *)0x40004000)
 #define TIMER_CMP (*(uint64_t volatile *)0x40004008)

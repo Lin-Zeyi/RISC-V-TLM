@@ -25,6 +25,7 @@ namespace riscv_tlm {
 
         irq_line_socket.register_b_transport(this, &CPU::call_interrupt);
 
+        // 这个trans用于中断
         trans.set_command(tlm::TLM_READ_COMMAND);
 
         trans.set_data_length(4);
@@ -36,7 +37,7 @@ namespace riscv_tlm {
         if (!debug) {
             SC_THREAD(CPU_thread);
         }
-    };
+    }
 
     void CPU::invalidate_direct_mem_ptr(sc_dt::uint64 start, sc_dt::uint64 end) {
         (void) start;

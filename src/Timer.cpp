@@ -35,8 +35,11 @@ namespace riscv_tlm::peripherals {
         irq_trans->set_response_status(tlm::TLM_INCOMPLETE_RESPONSE);
         irq_trans->set_address(0);
 
+        // 每次进入循环后，如果事件没有触发，就会一直wait。如果事件触发了，就会调用b_transport方法发送中断，然后重新进入循环，wait下次触发。
+        // 应该是只有循环体内部的部分会多次执行，外部的只会执行一次。
         while (true) {
-            wait(timer_event);
+            wait(timer_event);  // 如果没有用event，那么会在每个时间步触发。（可能是时钟周期，或者是指定仿真时间之类。）
+            // 这个irq_line就是一个initial socket，向cpu的target socket发送trans。
             irq_line->b_transport(*irq_trans, delay);
         }
     }
@@ -44,6 +47,7 @@ namespace riscv_tlm::peripherals {
     void Timer::b_transport(tlm::tlm_generic_payload &trans,
                             sc_core::sc_time &delay) {
 
+        // 收取trans发来的配置信息
         tlm::tlm_command cmd = trans.get_command();
         sc_dt::uint64 addr = trans.get_address();
         unsigned char *ptr = trans.get_data_ptr();
@@ -52,7 +56,8 @@ namespace riscv_tlm::peripherals {
 
         std::uint32_t aux_value = 0;
 
-
+        // 如果是写命令，抽取出有效信息，写到类的私有变量里（有点类似写入寄存器）
+        // 这块具体可以看通用净核对象的属性那一节。
         if (cmd == tlm::TLM_WRITE_COMMAND) {
             memcpy(&aux_value, ptr, len);
             switch (addr) {

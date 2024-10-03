@@ -29,6 +29,8 @@ namespace riscv_tlm {
     class Memory : sc_core::sc_module {
     public:
         // TLM-2 socket, defaults to 32-bits wide, base protocol
+        // 接口是socket类，在接口之间传输的是generic_payload类。
+        // 模板类的实例化第一个参数通常就是当前类的名称
         tlm_utils::simple_target_socket<Memory> socket;
 
         /* 16 MBytes */

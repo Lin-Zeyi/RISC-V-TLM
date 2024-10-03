@@ -71,7 +71,7 @@ i5-5200<span>@</span>2.2Ghz and about 4.500.000 instructions / sec in a Intel Co
 Trace perihperal creates a xterm window where it prints out all received data. 
 
 ### Structure
-![Modules' hierarchy](doc/Hierarchy.png)
+![Modules' hierarchy](./doc/Hierarchy.png)
 
 
 ### Memory map

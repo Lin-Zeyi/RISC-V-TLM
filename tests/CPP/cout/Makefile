@@ -1,4 +1,4 @@
-TARGET   = cout
+TARGET = cout
 
 TARGET_ARCH = riscv32
 

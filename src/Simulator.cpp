@@ -65,9 +65,11 @@ public:
 		trace = new riscv_tlm::peripherals::Trace("Trace");
 		timer = new riscv_tlm::peripherals::Timer("Timer");
 
+        // 这两个是把cpu侧的两个socket和bus侧的两个socket绑定起来。但是为什么要多加一个mem_intf呢
 		cpu->instr_bus.bind(Bus->cpu_instr_socket);
 		cpu->mem_intf->data_bus.bind(Bus->cpu_data_socket);
 
+        // 这三个应该是把bus的出口侧绑定到三个总线外设上
 		Bus->memory_socket.bind(MainMemory->socket);
 		Bus->trace_socket.bind(trace->socket);
 		Bus->timer_socket.bind(timer->socket);

@@ -35,6 +35,7 @@ namespace riscv_tlm {
         /* Constructors */
         explicit CPU(sc_core::sc_module_name const &name, bool debug);
 
+        // 删除默认构造函数、拷贝构造函数、拷贝赋值运算符和移动赋值运算符，确保CPU对象具有唯一性。
         CPU() noexcept = delete;
         CPU(const CPU& other) noexcept = delete;
         CPU(CPU && other) noexcept = delete;
@@ -51,7 +52,7 @@ namespace riscv_tlm {
         virtual bool CPU_step() = 0;
 
         /**
-         * @brief Instruction Memory bus socket
+         * @brief Instruction Memory bus socket，从cpu发出访问
          * @param trans transction to perfoem
          * @param delay time to annotate
          */
@@ -148,7 +149,7 @@ namespace riscv_tlm {
          * @brief Process and triggers IRQ if all conditions met
          * @return true if IRQ is triggered, false otherwise
          */
-        bool cpu_process_IRQ() override;
+        bool cpu_process_IRQ() override;    // override 关键字确保编译器会检查基类中是否存在一个具有相同签名的虚函数。
 
         /**
          * @brief callback for IRQ simple socket

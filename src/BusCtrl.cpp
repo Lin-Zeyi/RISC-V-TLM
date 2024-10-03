@@ -16,6 +16,8 @@ namespace riscv_tlm {
             sc_module(name), cpu_instr_socket("cpu_instr_socket"), cpu_data_socket(
             "cpu_data_socket"), memory_socket("memory_socket"), trace_socket(
             "trace_socket") {
+        // 给两个socket注册一个传输处理函数b_transport。&BusCtrl::b_transport是指向BusCtrl类中的b_transport方法。两个socket用的处理函数都是这个。
+        // 当这些 socket 接收到传输请求时，会调用这个 b_transport 方法来处理请求。
         cpu_instr_socket.register_b_transport(this, &BusCtrl::b_transport);
         cpu_data_socket.register_b_transport(this, &BusCtrl::b_transport);
 
@@ -25,6 +27,7 @@ namespace riscv_tlm {
                                                          &BusCtrl::invalidate_direct_mem_ptr);
     }
 
+    // 这个是busctrl接收cpu那里发来的trans的处理函数。
     void BusCtrl::b_transport(tlm::tlm_generic_payload &trans,
                               sc_core::sc_time &delay) {
 
@@ -36,6 +39,7 @@ namespace riscv_tlm {
             return;
         }
 
+        // 根据地址范围，把trans发送到不同的外设上，用不同外设的socket的处理函数做进一步处理。
         switch (adr) {
             case TIMER_MEMORY_ADDRESS_HI / 4:
             case TIMER_MEMORY_ADDRESS_LO / 4:

@@ -114,6 +114,7 @@ namespace riscv_tlm {
             trans.set_address(register_bank->getPC());
             instr_bus->b_transport(trans, delay);
 
+            // 判断tlm通信收到的回复如何。除了用get_response_status，还可以直接is_response_error方法。/
             if (trans.is_response_error()) {
                 SC_REPORT_ERROR("CPU base", "Read memory");
             }
