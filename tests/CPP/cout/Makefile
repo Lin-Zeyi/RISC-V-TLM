@@ -15,8 +15,8 @@ LIBS   = $(EXTRA_LIBS)
 
 # change these to proper directories where each file should be
 SRCDIR   = ./
-OBJDIR   = .
-BINDIR   = ./
+OBJDIR   = ./build
+BINDIR   = $(OBJDIR)
 INCDIR = -I.
 LIBDIR = -L.
 
@@ -27,6 +27,7 @@ OBJECTS  := $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 rm       = rm -f
 
+all: prepare $(BINDIR)/$(TARGET)
 
 $(BINDIR)/$(TARGET): $(OBJECTS)
 	$(LINKER) $(CFLAGS) $(LDFLAGS) $(LIBS) $(LIBDIR) $(OBJECTS) -o $@
@@ -39,9 +40,13 @@ $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	$(CC) $(CFLAGS) $(INCDIR) -c $< -o $@
 	@echo "Done!"
 
-.PHONY: clean
+prepare:
+	mkdir -p $(OBJDIR)
+
+.PHONY: clean prepare
 clean:
 	@$(rm) $(OBJECTS) *.hex dump
+	@$(rm) -rf $(OBJDIR)
 	@echo "Cleanup complete!"
 
 .PHONY: remove
