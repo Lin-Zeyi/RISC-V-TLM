@@ -1,0 +1,19 @@
+start time       : 117800
+stop time        : 3441464490
+2K performance run parameters for coremark.
+CoreMark Size    : 666
+Total ticks      : 3441346690
+Total time (secs): 3
+Iterations/Sec   : 333
+Iterations       : 1000
+Compiler version : GCC13.2.0
+Compiler flags   : 
+Memory location  : Please put data memory location here
+                        (e.g. code in flash, data on heap etc)
+seedcrc          : 0xe9f5
+[0]crclist       : 0xe714
+[0]crcmatrix     : 0x1fd7
+[0]crcstate      : 0x8e3a
+[0]crcfinal      : 0xd340
+Correct operation validated. See README.md for run and reporting rules.
+
