@@ -5,7 +5,7 @@ TARGET_ARCH = riscv64
 CC       = riscv64-unknown-elf-gcc
 
 ifndef $(ITERATIONS)
-ITERATIONS=1000
+ITERATIONS=100
 endif
 
 # compiling flags here

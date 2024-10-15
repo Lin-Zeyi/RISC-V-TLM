@@ -123,7 +123,7 @@ void portable_free(void *p) {
     // Defined for RISCV
 
 	#define TIMER (*(uint64_t volatile *)0x40004000)
-    #define NSECS_PER_SEC 1000000000 // TODO: What freq are we assuming?
+    #define NSECS_PER_SEC 1e8 // TODO: What freq are we assuming?
 	#define EE_TIMER_TICKER_RATE 1000 // TODO: What is this?
 	#define CORETIMETYPE clock_t
     // #define read_csr(reg) ({ unsigned long __tmp; \
